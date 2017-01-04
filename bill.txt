@@ -1,0 +1,6 @@
+CustomerId:1005
+Customer Name: Nilesh
+Order Date08/12/2016
+Shipped Date08/12/2016
+OrderNo	Quantity
+2003	10

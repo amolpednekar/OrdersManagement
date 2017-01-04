@@ -10,10 +10,12 @@ import com.psl.beans.Address;
 import com.psl.beans.Customer;
 import com.psl.beans.OrderItem;
 import com.psl.beans.PurchaseOrder;
+import com.psl.beans.StockItem;
 import com.psl.dao.ConnectionManager;
 import com.psl.dao.ConnectionManagerImpl;
 import com.psl.dao.CustomerManagerDb;
 import com.psl.dao.PurchaseOrderManagerDb;
+import com.psl.dao.StockItemManagerDB;
 import com.psl.utility.PurchaseOrderManagerImpl;
 
 
@@ -55,9 +57,13 @@ public class Client {
 		client.createOrder(1008, list, shipDateNull);
 		*/
 		
-		client.shipOrders(1005);
+		//client.shipOrders(1005);
 	//	pomd.getAllOrdersByCustomer(1005);
 		//client.storePurchaseOrder();
+		ArrayList<StockItem> stockList;
+		StockItemManagerDB stockDB = new StockItemManagerDB();
+		stockList = stockDB.getStockItems();
+		
 	}
 
 	private static void insertShippedOrdersInDB(PurchaseOrderManagerDb pomd) {
@@ -154,7 +160,7 @@ public class Client {
 		customer.setAddress(address);
 		customer.setEmail("12xyz@gmail.com");
 		customerList.add(customer);
-		
+	
 		System.out.println(customerList);
 		
 		

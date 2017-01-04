@@ -1,10 +1,13 @@
 package com.psl.utility;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -192,12 +195,38 @@ public class PurchaseOrderManagerImpl implements PurchaseOrderManager{
 			System.out.println(o);
 		}
 		olist = pdb.returnOrderItems(1005);
-		pdb.insertShippedOrders(cust_id,plist,olist,"Nilesh");
+		
+		//pdb.insertShippedOrders(cust_id,plist,olist,"Nilesh"); Works! Commented to avoid PK conflicts
+		
+		File file = new File("bill.txt");
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			PrintWriter p = new PrintWriter(file);
+			p.println("CustomerId:" + cust_id);
+			p.println("Customer Name: Nilesh");
+			
+			for(PurchaseOrder po:plist){
+				p.println("Order Date: " + sdf.format(po.getOrderDate()));
+				p.println("Shipped Date: " + sdf.format(po.getShipdate()));
+				for(OrderItem oi:olist){
+					p.println("OrderNo\tQuantity");
+					p.println(oi.getOrderno()+"\t"+oi.getQty());
+				}
+			}
+				
+			p.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 	}
 
 	@Override
 	public Void removeExpiredItems() {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
